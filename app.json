@@ -8,6 +8,10 @@
       "web"
     ],
     "version": "1.0.0",
+    "android": {
+      "package": "tech.codex.foodplazza",
+      "versionCode": 2
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

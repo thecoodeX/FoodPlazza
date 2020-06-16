@@ -1,6 +1,9 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart";
-import CartItem from "../../models/cart-item";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart"
+import CartItem from "../../DATA/models/CartItem";
 import { ADD_ORDER } from "../actions/order";
+
+
+
 
 const initialState = {
     items: {},
@@ -13,6 +16,7 @@ export default (state = initialState, action) => {
             const addedProduct = action.product;
             const prodPrice = addedProduct.price;
             const prodTitle = addedProduct.title;
+            const prodImgUrl = addedProduct.imgUrl;
 
             let updatedOrNewCartItem;
 
@@ -22,10 +26,11 @@ export default (state = initialState, action) => {
                     state.items[addedProduct.id].quantity + 1,
                     prodPrice,
                     prodTitle,
-                    state.items[addedProduct.id].sum + prodPrice
+                    state.items[addedProduct.id].sum + prodPrice,
+                    prodImgUrl
                 );
             } else {
-                updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
+                updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice, prodImgUrl);
             }
             return {
                 ...state,
@@ -42,7 +47,9 @@ export default (state = initialState, action) => {
                     selectedCartItem.quantity - 1,
                     selectedCartItem.productPrice,
                     selectedCartItem.productTitle,
-                    selectedCartItem.sum - selectedCartItem.productPrice
+                    selectedCartItem.sum - selectedCartItem.productPrice,
+                    selectedCartItem.imgUrl
+
                 );
                 updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
             } else {
@@ -54,42 +61,71 @@ export default (state = initialState, action) => {
                 items: updatedCartItems,
                 totalAmount: Math.abs(state.totalAmount - selectedCartItem.productPrice),
             };
+        case ADD_ORDER: {
+            return initialState;
+        }
 
-        case ADD_ORDER:
-            return initialState
-
-
-
-
-
-        // switch (action.type) {
-        //     case ADD_TO_CART:
-        //         const addedProduct = action.product;
-        //         const productPrice = addedProduct.price;
-        //         const productTitle = addedProduct.title;
-
-        //         let updatedOrNewCartItem;
-
-        //         //if product is already in to the cart
-        //         if (state.items[addedProduct.id]) {
-        //              updatedOrNewCartItem = new CartItem(
-        //                 state.items[addedProduct.id].quantity + 1,
-        //                 productPrice,
-        //                 productTitle,
-        //                 total + productPrice,
-        //             );
-
-        //         } else {
-        //             // if new item added to the cart
-        //             updatedOrNewCartItem = newCartItem(1, productPrice, productTitle, productPrice);
-
-        //         }
-        //         return {
-        //             ...state,
-        //             items: { ...state.items, [addedProduct.id]: updatedOrNewCartItem },
-        //             totalAmount: state.totalAmount + productPrice,
-        //         };
     }
     return state;
 
 };
+
+
+
+
+
+
+
+
+
+
+
+/* BackUp Data
+
+import { ADD_TO_CART } from "../actions/cart"
+import CartItem from "../../DATA/models/CartItem";
+
+const initialState = {
+    items: {},
+    totalAmount: 0,
+}
+
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case ADD_TO_CART:
+            const addedProduct = action.product;
+            const prodPrice = addedProduct.price;
+            const prodTitle = addedProduct.title;
+            const prodImgUrl = addedProduct.imgUrl;
+
+            // reuse Code
+            let updatedOrNewCartItem;
+
+            if (state.items[addedProduct.id]) {
+                // already item in the cart so add by 1
+                updatedOrNewCartItem = new CartItem(
+                    state.items[addedProduct.id].quantity + 1,
+                    prodPrice,
+                    prodTitle,
+                    state.items[addedProduct.id].sum + prodPrice,
+                    prodImgUrl,
+
+
+                );
+
+            } else {
+                //create new Item
+
+                updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice, prodImgUrl);
+
+            } return {
+                ...state,
+                items: { ...state.items, [addedProduct.id]: updatedOrNewCartItem },
+                totalAmount: state.totalAmount + prodPrice
+            };
+    }
+
+    return state;
+}
+
+ */

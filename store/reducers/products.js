@@ -1,11 +1,12 @@
-
-import MENUITEMS from '../../DATA/dataApi';
+import { MENUITEMS } from '../../DATA/dataApi'
 
 const initialState = {
     avilableProducts: MENUITEMS,
-    userProducts: MENUITEMS,
-};
+    userProduct: MENUITEMS,
+}
 
-export default (state = initialState, action) => {
+export default (state = initialState, actions) => {
+
     return state;
+
 }

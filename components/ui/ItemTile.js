@@ -24,7 +24,9 @@ const ItemTile = props => {
                 </Text>
             </View>
             <View style={style.button}>
-                <Button title='Add To Cart' color={Colors.primaryColor} />
+                <Button title='Add To Cart' color={Colors.primaryColor}
+                    onPress={props.onAddToCart}
+                />
             </View>
 
         </Card>

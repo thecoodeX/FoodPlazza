@@ -24,14 +24,16 @@ const MenuItemTile = props => {
                 <Text style={style.price}> ₹ {props.price}</Text>
             </View>
             <View style={style.v2}>
-                <View style={style.buttonContainer}>
-                    <Button title='Add To Cart' color={Colors.primaryColor} fontFamily='Roboto' />
-                </View>
+
                 <View style={style.buttonContainer} >
                     <Button title='view' color={Colors.primaryColor} fontFamily='Roboto'
-                        onPress={props.onSelect}
-                    />
+                        onPress={props.onSelect} />
                 </View>
+                <View style={style.buttonContainer}>
+                    <Button title='Add To Cart' color={Colors.primaryColor} fontFamily='Roboto'
+                        onPress={props.onAddtoCart} />
+                </View>
+
             </View>
 
 
@@ -64,7 +66,7 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: "center"
     }, v1: {
-        margin: 2
+        margin: 2,
     },
     v2: {
         flexDirection: 'row',

@@ -4,10 +4,22 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import FoodNavigation from './navigation/FoodNavigation';
 
+//REDUX
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
+import productReducer from './store/reducers/products';
+import cartReducer from './store/reducers/cart';
+import orderReducer from './store/reducers/order';
+
+const rootReducer = combineReducers({
+  products: productReducer,
+  cart: cartReducer,
+  order: orderReducer,
+})
 
 
-
-
+const store = createStore(rootReducer);
 
 
 const fetchFont = () => {
@@ -30,8 +42,9 @@ export default function App() {
         setFontLoaded(true);
       }} />
   }
-  return (
+  return (<Provider store={store}>
     <FoodNavigation />
+  </Provider>
 
 
 
